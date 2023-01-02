@@ -1,0 +1,63 @@
+namespace rman;
+
+table Bundle {
+  id: ulong;
+  chunks: [Chunk];
+}
+
+table Chunk {
+  id: ulong;
+  compressed_size: uint;
+  uncompressed_size: uint;
+}
+
+table Directory {
+  id: ulong = 0;
+  parent_id: ulong = 0;
+  name: string;
+}
+
+table File {
+  id: ulong;
+  directory_id: ulong = 0;
+  size: uint;
+  name: string;
+  language_mask: ulong = 0;
+  unk5: ubyte = 0; // might be byte
+  unk6: ubyte = 0; // might be byte
+  chunk_ids: [ulong];
+  unk8: ubyte = 0; // might be byte
+  link: string;
+  unk10: ushort = 0; // might be (u)byte or short
+  params_index: ubyte = 0;
+  permissions: ubyte = 0;
+}
+
+table Key {
+  unk0: ushort; // might be short
+  unk1: uint; // might be int
+}
+
+table Language {
+  id: ubyte;
+  name: string;
+}
+
+table Manifest {
+  bundles: [Bundle];
+  languages: [Language];
+  files: [File];
+  directories: [Directory];
+  keys: [Key];
+  params: [Param];
+}
+
+table Param {
+  unk0: ushort; // might be short
+  hash_type: ubyte;
+  unk2: uint; // might be int
+  unk3: uint; // might be int
+  max_uncompressed: uint;
+}
+
+root_type Manifest;
