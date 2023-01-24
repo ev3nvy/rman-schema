@@ -26,10 +26,10 @@ table File {
   unk5: ubyte = 0; // might be byte
   unk6: ubyte = 0; // might be byte
   chunk_ids: [ulong];
-  unk8: ubyte = 0; // might be byte
-  link: string;
+  unk8: ubyte = 0; // might be byte (set to 1 when part of .app on macOS)
+  symlink: string;
   unk10: ushort = 0; // might be (u)byte or short
-  params_index: ubyte = 0;
+  param_id: ubyte = 0;
   permissions: ubyte = 0;
 }
 
@@ -53,11 +53,11 @@ table Manifest {
 }
 
 table Param {
-  unk0: ushort; // might be short
-  hash_type: ubyte;
-  unk2: uint; // might be int
-  unk3: uint; // might be int
-  max_uncompressed: uint;
+  unk0: ushort; // this probably either an id or type
+  chunking_version: ubyte;
+  min_chunk_size: uint;
+  chunk_size: uint;
+  max_chunk_size: uint;
 }
 
 root_type Manifest;
