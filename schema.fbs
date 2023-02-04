@@ -1,31 +1,31 @@
 namespace rman;
 
 table Bundle {
-  id: ulong;
+  id: long;
   chunks: [Chunk];
 }
 
 table Chunk {
-  id: ulong;
+  id: long;
   compressed_size: uint;
   uncompressed_size: uint;
 }
 
 table Directory {
-  id: ulong = 0;
-  parent_id: ulong = 0;
+  id: long = 0;
+  parent_id: long = 0;
   name: string;
 }
 
 table File {
-  id: ulong;
-  directory_id: ulong = 0;
+  id: long;
+  directory_id: long = 0;
   size: uint;
   name: string;
   language_mask: ulong = 0;
   unk5: ubyte = 0; // might be byte
   unk6: ubyte = 0; // might be byte
-  chunk_ids: [ulong];
+  chunk_ids: [long];
   unk8: ubyte = 0; // might be byte (set to 1 when part of .app on macOS)
   symlink: string;
   unk10: ushort = 0; // might be (u)byte or short
