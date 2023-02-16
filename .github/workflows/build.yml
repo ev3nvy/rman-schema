@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: cargo publish
+    name: Build and upload compiled schemas
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
