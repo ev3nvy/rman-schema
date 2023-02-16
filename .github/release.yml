@@ -1,0 +1,17 @@
+changelog:
+  categories:
+    - title: 🐛 Bug fixes
+      labels:
+        - 'type: bug'
+    - title: 📦 Chore
+      labels:
+        - 'type: chore'
+    - title: 🔁 Continuous Integration
+      labels:
+        - 'type: CI'
+    - title: 📝 Documentation
+      labels:
+        - 'type: docs'
+    - title: 🏕 Features
+      labels:
+        - 'type: feature'
