@@ -1,5 +1,12 @@
 # rman-schema
 
+<div align="center">
+
+[![github](https://img.shields.io/badge/github-ev3nvy/rman--schema-181717?logo=github&style=for-the-badge)][repository]
+[![Discord](https://img.shields.io/discord/1007597805956780062?color=5865F2&label=discord&logo=discord&logoColor=FFFFFF&style=for-the-badge)][discord]
+
+</div>
+
 This is a [FlatBuffer][flatbuffers] schema for the [.manifest][manifest] format made by
 [RiotGames][riot-games].
 
@@ -18,10 +25,18 @@ To build the provided schema you will need `flatc`. You can build `flatc` yourse
 Once you have `flatc` installed, you can build it for the language of you choice (see
 [using the compiler][flatbuffers-guide-using-schema-compiler]).
 
+Alternatively, you can download the compiled schema, for your
+[desired language][flatbuffers-languages], from [releases page][repository-releases].
+
 ## Contributing
 
 If you find a bug with the schema, or you find the usage for the remaining unknown variables,
 please open up an issue or make a PR.
+
+## Seeking help
+
+If you need any help, or have any questions, feel free to open an issue, or ask for assistance
+[on discord][discord].
 
 ## Acknowledgements
 
@@ -42,10 +57,17 @@ Games, Inc or any of its affiliates or subsidiaries.
 I, the project owner and creator, am not responsible for any legalities that may arise in the use
 of this project. Use at your own risk.
 
+<!-- Project links -->
+[discord]: https://discord.gg/5QVVBKBvpQ
+[repository]: https://github.com/ev3nvy/rman-schema
+[repository-releases]: https://github.com/ev3nvy/rman-schema/releases
 
+
+<!-- References -->
 [flatbuffers]: https://github.com/google/flatbuffers
 [flatbuffers-guide-building]: https://google.github.io/flatbuffers/flatbuffers_guide_building.html
 [flatbuffers-guide-using-schema-compiler]: https://google.github.io/flatbuffers/flatbuffers_guide_using_schema_compiler.html
+[flatbuffers-languages]: https://google.github.io/flatbuffers/flatbuffers_support.html
 [flatbuffers-releases]: https://github.com/google/flatbuffers/releases
 [manifest]: https://technology.riotgames.com/news/supercharging-data-delivery-new-league-patcher
 [moonshadow565-rman]: https://github.com/moonshadow565/rman
