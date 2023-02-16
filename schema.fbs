@@ -22,7 +22,7 @@ table File {
   directory_id: long = 0;
   size: uint;
   name: string;
-  language_mask: ulong = 0;
+  tag_bitmask: ulong = 0;
   unk5: ubyte = 0; // might be byte
   unk6: ubyte = 0; // might be byte
   chunk_ids: [long];
@@ -38,14 +38,14 @@ table Key {
   unk1: uint; // might be int
 }
 
-table Language {
+table Tag {
   id: ubyte;
   name: string;
 }
 
 table Manifest {
   bundles: [Bundle];
-  languages: [Language];
+  tags: [Tag];
   files: [File];
   directories: [Directory];
   keys: [Key];
