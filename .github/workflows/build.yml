@@ -1,0 +1,129 @@
+name: Build for release
+
+permissions:
+  contents: read
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: cargo publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Try getting flatc from cache
+        uses: actions/cache@v3
+        id: cache-flatc
+        with:
+          path: ~/.local/bin
+          key: ${{ runner.os }}-build-flatc-clang12-23-1-21
+
+      - name: cmake flatc
+        if: steps.cache-flatc.outputs.cache-hit != 'true'
+        run: CXX=clang++-12 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DFLATBUFFERS_STRICT_MODE=ON ./flatbuffers
+
+      - name: Build flatc
+        if: steps.cache-flatc.outputs.cache-hit != 'true'
+        run: make -j
+
+      - name: Make flatc executable
+        if: steps.cache-flatc.outputs.cache-hit != 'true'
+        run: |
+          chmod +x flatc
+          ./flatc --version
+
+      - name: Move flatc
+        if: steps.cache-flatc.outputs.cache-hit != 'true'
+        run: mv flatc ~/.local/bin
+
+      - name: Compile C++ schema
+        run: |
+          flatc --cpp -o schema_generated_cpp schema.fbs
+          zip -rj schema_generated_cpp.zip schema_generated_cpp
+
+      - name: Compile Java schema
+        run: |
+          flatc --java -o schema_generated_java schema.fbs
+          zip -rj schema_generated_java.zip schema_generated_java
+
+      - name: Compile Kotlin schema
+        run: |
+          flatc --kotlin -o schema_generated_kotlin schema.fbs
+          zip -rj schema_generated_kotlin.zip schema_generated_kotlin
+
+      - name: Compile C# schema
+        run: |
+          flatc --csharp -o schema_generated_csharp schema.fbs
+          zip -rj schema_generated_csharp.zip schema_generated_csharp
+
+      - name: Compile Go schema
+        run: |
+          flatc --go -o schema_generated_go schema.fbs
+          zip -rj schema_generated_go.zip schema_generated_go
+
+      - name: Compile Python schema
+        run: |
+          flatc --python -o schema_generated_python schema.fbs
+          zip -rj schema_generated_python.zip schema_generated_python
+
+      - name: Compile TypeScript schema
+        run: |
+          flatc --ts -o schema_generated_ts schema.fbs
+          zip -rj schema_generated_ts.zip schema_generated_ts
+
+      - name: Compile PHP schema
+        run: |
+          flatc --php -o schema_generated_php schema.fbs
+          zip -rj schema_generated_php.zip schema_generated_php
+
+      - name: Compile Dart schema
+        run: |
+          flatc --dart -o schema_generated_dart schema.fbs
+          zip -rj schema_generated_dart.zip schema_generated_dart
+
+      # Lua files don't compile into the directory (probably a bug)
+      - name: Compile Lua schema
+        run: |
+          flatc --lua -o schema_generated_lua schema.fbs
+          mv rman schema_generated_lua
+          zip -rj schema_generated_lua.zip schema_generated_lua
+
+      - name: Compile Lobster schema
+        run: |
+          flatc --lobster -o schema_generated_lobster schema.fbs
+          zip -rj schema_generated_lobster.zip schema_generated_lobster
+
+      - name: Compile Rust schema
+        run: |
+          flatc --rust -o schema_generated_rust schema.fbs
+          zip -rj schema_generated_rust.zip schema_generated_rust
+
+      - name: Compile Swift schema
+        run: |
+          flatc --swift -o schema_generated_swift schema.fbs
+          zip -rj schema_generated_swift.zip schema_generated_swift
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            schema_generated_cpp.zip
+            schema_generated_java.zip
+            schema_generated_kotlin.zip
+            schema_generated_csharp.zip
+            schema_generated_go.zip
+            schema_generated_python.zip
+            schema_generated_ts.zip
+            schema_generated_php.zip
+            schema_generated_dart.zip
+            schema_generated_lua.zip
+            schema_generated_lobster.zip
+            schema_generated_rust.zip
+            schema_generated_swift.zip
