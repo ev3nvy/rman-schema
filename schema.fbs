@@ -29,7 +29,7 @@ table File {
   unk8: ubyte = 0; // might be byte (set to 1 when part of .app on macOS)
   symlink: string;
   unk10: ushort = 0; // might be (u)byte or short
-  param_id: ubyte = 0;
+  chunking_param_id: ubyte = 0;
   permissions: ubyte = 0;
 }
 
@@ -49,10 +49,10 @@ table Manifest {
   files: [File];
   directories: [Directory];
   keys: [Key];
-  params: [Param];
+  chunking_params: [ChunkingParam];
 }
 
-table Param {
+table ChunkingParam {
   unk0: ushort; // this probably either an id or type
   chunking_version: ubyte;
   min_chunk_size: uint;
