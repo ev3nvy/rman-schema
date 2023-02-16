@@ -27,7 +27,7 @@ jobs:
 
       - name: cmake flatc
         if: steps.cache-flatc.outputs.cache-hit != 'true'
-        run: CXX=clang++-12 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DFLATBUFFERS_STRICT_MODE=ON ./flatbuffers
+        run: CXX=clang++-12 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DFLATBUFFERS_STRICT_MODE=ON -DFLATBUFFERS_CXX_FLAGS="-DFLATBUFFERS_NO_FILE_TESTS" ./flatbuffers
 
       - name: Build flatc
         if: steps.cache-flatc.outputs.cache-hit != 'true'
@@ -41,7 +41,9 @@ jobs:
 
       - name: Move flatc
         if: steps.cache-flatc.outputs.cache-hit != 'true'
-        run: mv flatc ~/.local/bin
+        run: |
+          mkdir -p ~/.local/bin
+          mv flatc ~/.local/bin
 
       - name: Compile C++ schema
         run: |
